@@ -7,7 +7,7 @@
     <div class="col-6">
         @if (tamanos != null)
         {
-            <select class="form-select" aria-label="Default select example" @onchange="TamanoFunc">
+            <select class="form-select" aria-label="Default select example" @onchange="TamanoFunc" style="margin-bottom:2rem">
                 <option selected disabled>Selecciona el tamaño</option>
                 @foreach (var item in tamanos)
                 {
@@ -19,7 +19,7 @@
         {
             @if (tiposMasa != null)
         {
-            <select class="form-select" aria-label="Default select example" @onchange="TipoFunc">
+                <select class="form-select" aria-label="Default select example" @onchange="TipoFunc" style="margin-bottom:2rem">
                 <option selected disabled>Selecciona el tipo de masa</option>
                 @foreach (var item in tiposMasa)
                 {
@@ -32,30 +32,59 @@
         {
             @foreach(var item in ingredientes)
             {
-                <div class="form-check">
+                <div class="form-check" style="display:inline-block;margin-right:2rem">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @onchange="eventArg => {IngSel(item,eventArg);}">
             <label class="form-check-label" for="flexCheckDefault">
-                @item.Nombre
-            </label>
+                        @item.Nombre @if (item.Nombre == "Jamón")
+                        {
+                            <span class="badge bg-warning">Nuevo</span>
+                        }
+                    </label>
             </div>
             }
  
         }
-       
-        
+        @if (costoIngredientes > 0.0 && tamanoSeleccionado.Precio > 0.0 && tipoSeleccionado.Precio > 0.0)
+        {
+                <div class="d-grid gap-2" style="margin-top:2rem">
+                <button class="btn btn-outline-primary" type="button" @onclick="Ordenar" disabled="@ordenando">Ordenar</button>
+        </div>
+        }
+
+        @if (ordenando)
+        {
+            <div class="text-center" style="margin-top:5rem">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Ordenando...</span>
+                </div>
+            </div>
+        }
     </div>
-    <div class="col-6">
-        @tamanoSeleccionado.Tamano
-        @tamanoSeleccionado.Precio
-        <br />
-        @tipoSeleccionado.Tipo
-        @tipoSeleccionado.Precio
-        <br />
-        Ingredientes
-        @costoIngredientes
-        <br />
-        Precio total
-        @totalPizza
+    <div class="col-6 mx-auto">
+        <div class="card" style="width:25rem;text-align:center">
+            <img src="https://revistaelconocedor.com/wp-content/uploads/2017/04/shutterstock_378226756-1024x736.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">Siempre utilizamos los ingredientes frescos y de la más alta calidad</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    @tamanoSeleccionado.Tamano
+                    <h6 style="color:green">@tamanoSeleccionado.Precio</h6>
+                </li>
+                <li class="list-group-item">
+                    @tipoSeleccionado.Tipo
+                    <h6 style="color:green">@tipoSeleccionado.Precio</h6>
+                </li>
+                <li class="list-group-item">
+                    Ingredientes
+                    <h6 style="color:green">@costoIngredientes</h6>
+                </li>
+            </ul>
+            <div class="card-body">
+                Precio total
+                <h5 style="color:forestgreen">$ @totalPizza</h5>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -71,6 +100,7 @@
     TipoMasa tipoSeleccionado = new TipoMasa();
     float costoIngredientes = 0.0f;
     float totalPizza = 0.0f;
+    bool ordenando = false;
 
     List<Ingrediente> ingredientesSel = new List<Ingrediente>();
 
@@ -141,5 +171,10 @@
             costoIngredientes += item.Precio;
         }
         totalPizza = tamanoSeleccionado.Precio + tipoSeleccionado.Precio + costoIngredientes;
+    }
+
+    private void Ordenar()
+    {
+        ordenando = true;
     }
 }
