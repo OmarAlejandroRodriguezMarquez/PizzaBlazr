@@ -17,5 +17,6 @@ namespace PizzaBlazor.Server.Data
 
         public DbSet<Ingrediente> Ingredientes { get; set; }
         public DbSet<Tamanos> Tamanos { get; set; }
+        public DbSet<TipoMasa> Masas { get; set; }
     }
 }

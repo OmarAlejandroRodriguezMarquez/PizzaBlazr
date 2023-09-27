@@ -1,5 +1,6 @@
 ﻿@page "/armala"
 @using PizzaBlazor.Shared.Models;
+@inject HttpClient client
 
 <h3>Ármala tú mismo</h3>
 
@@ -99,6 +100,9 @@
     List<Ingrediente> ingredientes = new List<Ingrediente>();
     Tamanos tamanoSeleccionado = new Tamanos();
     TipoMasa tipoSeleccionado = new TipoMasa();
+
+    Ingrediente nvoIngrediente = new Ingrediente();
+
     float costoIngredientes = 0.0f;
     float totalPizza = 0.0f;
     bool ordenando = false;
@@ -107,30 +111,15 @@
 
     protected override async Task OnInitializedAsync()
     {
-        tamanos = new List<Tamanos>()
-        {
-            new Tamanos{Id = 1, Tamano="Personal", Precio = 10.0f },
-            new Tamanos{Id = 2, Tamano="Chica", Precio = 20.0f },
-            new Tamanos{Id = 3, Tamano="Mediana", Precio = 30.0f },
-            new Tamanos{Id = 4, Tamano="Grande", Precio = 40.0f },
-        };
 
-        tiposMasa = new List<TipoMasa>()
-        {
-            new TipoMasa{Id = 1, Tipo="Tradicional", Precio = 20.0f },
-            new TipoMasa{Id = 2, Tipo="Crunch", Precio = 25.0f },
-            new TipoMasa{Id = 3, Tipo="Orilla de queso", Precio = 35.0f },
-            new TipoMasa{Id = 4, Tipo="Sartén", Precio = 15.0f },
-        };
+        nvoIngrediente = new Ingrediente { Nombre = "Doritos", Precio = 70.0f };
+        await client.PostAsJsonAsync("api/Catalogos/nvoingrediente", nvoIngrediente);
 
-        ingredientes = new List<Ingrediente>()
-        {
-            new Ingrediente{Id = 1, Nombre="Jamón", Precio = 10.0f },
-            new Ingrediente{Id = 2, Nombre="Piña", Precio = 18.0f },
-            new Ingrediente{Id = 3, Nombre="Atún", Precio = 23.0f },
-            new Ingrediente{Id = 4, Nombre="Jalapeño", Precio = 9.0f },
-            new Ingrediente{Id = 5, Nombre="Tocino", Precio = 15.0f },
-        };
+        tamanos = await client.GetFromJsonAsync<List<Tamanos>>("api/Catalogos");
+        tiposMasa = await client.GetFromJsonAsync<List<TipoMasa>>("api/Catalogos/tipomasa");
+        ingredientes = await client.GetFromJsonAsync<List<Ingrediente>>("api/Catalogos/ingredientes");
+
+        
     }
 
     private void TamanoFunc(ChangeEventArgs args)
