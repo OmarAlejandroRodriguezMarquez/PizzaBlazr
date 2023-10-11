@@ -42,6 +42,7 @@ namespace PizzaBlazor.Server.Controllers
 
         }
 
+        //Método de construcción del token
         private UserToken BuildToken(UserInfo userInfo)
         {
             var claims = new List<Claim>()

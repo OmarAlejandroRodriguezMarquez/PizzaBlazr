@@ -8,6 +8,7 @@ using PizzaBlazor.Shared.Models;
 
 namespace PizzaBlazor.Server.Controllers
 {
+    //Agregamos seguridad de autenticación a nuestro controlador
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]

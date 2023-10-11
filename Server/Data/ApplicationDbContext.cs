@@ -4,7 +4,7 @@ using PizzaBlazor.Shared.Models;
 
 namespace PizzaBlazor.Server.Data
 {
-    public class ApplicationDbContext:IdentityDbContext
+    public class ApplicationDbContext:IdentityDbContext //Heredamos de IdentityDbContext para que se creen las tablas de usuarios
     {
         public ApplicationDbContext(DbContextOptions options):base(options)
         {

@@ -17,10 +17,12 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(connectionString));
 
+//Agregamos el servicio de Identity (autenticación)
 builder.Services.AddIdentity<IdentityUser,IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
+//Agregamos el servicio de validación de tokens
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -58,6 +60,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//Agregamos el middleware (uso) de autenticación
 app.UseAuthentication();
 app.UseAuthorization();
 
