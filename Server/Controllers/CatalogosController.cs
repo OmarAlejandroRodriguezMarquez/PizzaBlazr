@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PizzaBlazor.Server.Data;
@@ -6,6 +8,7 @@ using PizzaBlazor.Shared.Models;
 
 namespace PizzaBlazor.Server.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class CatalogosController : ControllerBase
@@ -36,6 +39,7 @@ namespace PizzaBlazor.Server.Controllers
             return tamanos;
         }
 
+        
         [HttpGet("tipomasa")]
         public async Task<List<TipoMasa>> Masas()
         {
