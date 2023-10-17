@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaBlazor.Server", "Server\PizzaBlazor.Server.csproj", "{AC29018E-BF8E-475A-8978-A386E59CF8D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaBlazor.Server", "Server\PizzaBlazor.Server.csproj", "{AC29018E-BF8E-475A-8978-A386E59CF8D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaBlazor.Client", "Client\PizzaBlazor.Client.csproj", "{96F03FC9-A546-4EAC-80A9-D2CE2D52AACE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaBlazor.Client", "Client\PizzaBlazor.Client.csproj", "{96F03FC9-A546-4EAC-80A9-D2CE2D52AACE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaBlazor.Shared", "Shared\PizzaBlazor.Shared.csproj", "{13DA2FDF-0CA1-4C3D-A58A-1E0253249339}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaBlazor.Shared", "Shared\PizzaBlazor.Shared.csproj", "{13DA2FDF-0CA1-4C3D-A58A-1E0253249339}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

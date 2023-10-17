@@ -1,0 +1,49 @@
+﻿@page "/Login"
+@using PizzaBlazor.Client.Auth;
+@using PizzaBlazor.Shared.Models;
+@using System.Text.Json;
+@inject HttpClient client
+@inject ILoginService loginService
+
+<h3>Login</h3>
+
+<EditForm Model="userInfo" OnValidSubmit="LoginUsuario">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label>Usuario:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="userInfo.UserName" />
+            <ValidationMessage For="@(() => userInfo.UserName)" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label>Email:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="userInfo.Email" />
+            <ValidationMessage For="@(() => userInfo.Email)" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label>Password:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="userInfo.Password" />
+            <ValidationMessage For="@(() => userInfo.Password)" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Ingresar</button>
+</EditForm>
+
+@code {
+    private UserInfo userInfo = new UserInfo();
+    UserToken userToken = new UserToken();
+
+    private async Task LoginUsuario()
+    {
+        var response = await client.PostAsJsonAsync("api/Cuentas/Login", userInfo);
+        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            userToken = await response.Content.ReadFromJsonAsync<UserToken>();
+            await loginService.Login(userToken.Token);
+        }
+    }
+}

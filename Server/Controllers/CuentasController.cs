@@ -39,7 +39,22 @@ namespace PizzaBlazor.Server.Controllers
             {
                 return BadRequest(result.Errors);
             }
+        }
 
+        [HttpPost("Login")]
+        public async Task<ActionResult<UserToken>> Login([FromBody] UserInfo model)
+        {
+            var result = await signInManager.PasswordSignInAsync(
+                model.UserName, model.Password, isPersistent: false, lockoutOnFailure: false);
+
+            if (result.Succeeded)
+            {
+                return BuildToken(model);
+            }
+            else
+            {
+                return BadRequest("Login fallido");
+            }
         }
 
         //Método de construcción del token

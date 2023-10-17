@@ -1,0 +1,10 @@
+﻿@page "/logout"
+@using PizzaBlazor.Client.Auth;
+@inject ILoginService loginService
+
+@code{
+    protected override async Task OnInitializedAsync()
+    {
+        await loginService.Logout();
+    }
+}
